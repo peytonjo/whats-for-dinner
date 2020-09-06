@@ -116,30 +116,25 @@ nav {
 
 }
 
-.svg-icon{
-
-}
-
 .hidden{
     display: none !important;
 }
-
 
 .choice-container{
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    
+    padding: 40px;
 }
 .choice-container p{
-    margin: 0px;
-   
-
+    margin-bottom: 20px;
+    font-style: italic;
 }
 
 .choice-container h1{
-    font-size: 40px;
+    font-size: 20px;
+    text-align: center;
     margin: 0;
 
 }

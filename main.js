@@ -12,16 +12,36 @@ var randomChoice = document.getElementById('choice-text');
 
 function generateMealItem(event){
     event.preventDefault()
-    for(var i = 0; i < mealForm.length; i++){
-        if(mealForm[i].checked){
-            var selectedArray = meals[mealForm[i].value]
-            var choice = selectedArray[Math.floor(Math.random() * selectedArray.length)]
-        }
+    var randomMeal;
+    var mealsListName = getMealSelection();
+    
+    if (mealsListName === 'Entire Meal') {
+        randomMeal = getEntireMeal();
+    } else {
+        randomMeal = getRandomMeal(mealsListName, meals);
     }
-    randomChoice.innerHTML = choice;
+    randomChoice.innerHTML = randomMeal;
     switchDisplay(choiceContainer, icon)
 }
 
+function getMealSelection(){
+    for(var i = 0; i < mealForm.length; i++){
+        if(mealForm[i].checked){
+            return mealForm[i].value
+        }
+    }
+}
+
+function getRandomMeal(mealsListName, mealsData){
+    var mealList = mealsData[mealsListName];
+    var randomChoice = mealList[Math.floor(Math.random() * mealList.length)]
+
+    return randomChoice;
+}
+
+function getEntireMeal(){
+    return `${getRandomMeal('mainDish', meals)} with a side of ${getRandomMeal('sides', meals)} and ${getRandomMeal('desserts', meals)} for dessert!`
+}
 //display random generated food on the 'transparent-box'
 
 function switchDisplay(showElement, hideElement){
