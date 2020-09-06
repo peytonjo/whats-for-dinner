@@ -1,14 +1,20 @@
 // When a user selects a dish option (don't worry about "Entire Meal" yet) and then clicks the "Let's Cook!" button, the user sees a random dish from the list of possible dishes for that category
 // When the dish name appears, the cookpot icon disappears
 
+var form = document.getElementById('form-input');
 var letsCookBtn = document.getElementById('submit-btn');
 var mealForm = document.getElementById('form-input');
 var choiceContainer = document.getElementById('choice');
 var icon = document.getElementById('icon');
 var randomChoice = document.getElementById('choice-text');
+var clearBtn = document.getElementById('clear-btn');
 
 
+form.addEventListener('click', enableSubmit)
 
+function enableSubmit() {
+    letsCookBtn.disabled = false;
+}
 
 function generateMealItem(event){
     event.preventDefault()
@@ -49,6 +55,13 @@ function switchDisplay(showElement, hideElement){
     hideElement.classList.add('hidden')
 }
 
+function clearContent(){
+    randomChoice.innerHTML = '';
+    switchDisplay(icon, choiceContainer)
+    form.reset();
+    letsCookBtn.disabled = true;
+}
+
 
 
 
@@ -61,4 +74,5 @@ var meals = {
 
 //event listeners
 letsCookBtn.addEventListener('click', generateMealItem)
+clearBtn.addEventListener('click', clearContent)
 
