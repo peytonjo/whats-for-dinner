@@ -8,9 +8,12 @@ var choiceContainer = document.getElementById('choice');
 var icon = document.getElementById('icon');
 var randomChoice = document.getElementById('choice-text');
 var clearBtn = document.getElementById('clear-btn');
+var addRecipeBtn = document.getElementById('show-footer-btn');
+var newRecipeFooter = document.getElementById('new-recipe-footer');
+var newRecipeForm = document.getElementById('new-recipe-form');
+var newRecipeBtn = document.getElementById('new-recipe-btn');
 
 
-form.addEventListener('click', enableSubmit)
 
 function enableSubmit() {
     letsCookBtn.disabled = false;
@@ -62,17 +65,43 @@ function clearContent(){
     letsCookBtn.disabled = true;
 }
 
+function showNewMealForm(){
+    newRecipeFooter.classList.remove('hidden');
+}
+
+function submitNewRecipe(event){
+    event.preventDefault()
+    var inputValues = getNewMealValues();
+    if(meals[inputValues[0]]){
+        meals[inputValues[0]].push(inputValues[1])
+        console.log(meals[inputValues[0]])
+    }
+}
+
+function getNewMealValues(){
+    var inputValues = [];
+    for(var i = 0; i < newRecipeForm.length; i++){
+        if(newRecipeForm[i].value){
+            var lowerCasedInput = (newRecipeForm[i].value).toLowerCase();
+            inputValues.push(lowerCasedInput)
+        }
+    }
+    return inputValues;
+}
 
 
 
 
 var meals = {
-    sides: ['Miso','Glazed Carrots','Coleslaw','Garden Salad','Crispy Potatoes','Sweet Potato Tots','Coconut Rice','Caeser Salad','Shrimp Summer Rolls','Garlic Butter Mushrooms','Hush Puppies'],
+    side: ['Miso','Glazed Carrots','Coleslaw','Garden Salad','Crispy Potatoes','Sweet Potato Tots','Coconut Rice','Caeser Salad','Shrimp Summer Rolls','Garlic Butter Mushrooms','Hush Puppies'],
     mainDish: ['Spaghetti and Meatballs','Pineapple Chicken','Shakshuka','Thai Yellow Curry','Bibimbap','Chicken Parmesean','Butternut Squash Soup','BBQ Chicken Burgers','Ramen','Empanadas','Chicken Fried Rice','Sheet Pan Fajitas','Margarita Pizza'],
-    desserts: ['Apple Pie','Lemon Meringue Pie','Black Forest Cake','Banana Bread','Peach Cobbler','Cheesecake','Funfetti Cake','Baklava','Flan','Macarons','Macaroons','Chocolate Cupcakes','Pavlova','Pumpkin Pie','Key Lime Pie','Tart Tatin','Croissants','Eclairs']
+    dessert: ['Apple Pie','Lemon Meringue Pie','Black Forest Cake','Banana Bread','Peach Cobbler','Cheesecake','Funfetti Cake','Baklava','Flan','Macarons','Macaroons','Chocolate Cupcakes','Pavlova','Pumpkin Pie','Key Lime Pie','Tart Tatin','Croissants','Eclairs']
 }
 
 //event listeners
 letsCookBtn.addEventListener('click', generateMealItem)
 clearBtn.addEventListener('click', clearContent)
+form.addEventListener('click', enableSubmit)
+addRecipeBtn.addEventListener('click', showNewMealForm)
+newRecipeBtn.addEventListener('click', submitNewRecipe)
 
